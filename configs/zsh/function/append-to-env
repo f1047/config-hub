@@ -17,4 +17,10 @@ else
    return 1
 fi
 
-eval "$env_name+=($2(N-/))"
+local pattern=$2
+local -a dirs
+dirs=(${~pattern}(N-/))
+if (( ${#dirs} )); then
+   # env_name is always from the hardcoded allowlist above, so eval is safe here
+   eval "$env_name+=(\$dirs)"
+fi
