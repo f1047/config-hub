@@ -7,6 +7,7 @@ zsource $XDG_DATA_HOME/zsh/zshrc.zsh
 # Create XDG Base Directory as needed
 [[ -d $XDG_DATA_HOME/zsh ]]  || mkdir -p $XDG_DATA_HOME/zsh
 [[ -d $XDG_CACHE_HOME/zsh ]] || mkdir -p $XDG_CACHE_HOME/zsh
+[[ -d $XDG_STATE_HOME/zsh ]] || mkdir -p $XDG_STATE_HOME/zsh
 
 #==============================================================================
 # BASIC CONFIG
@@ -22,7 +23,7 @@ setopt auto_pushd
 setopt correct
 setopt list_packed
 setopt no_beep
-HISTFILE=$XDG_DATA_HOME/zsh/history
+HISTFILE=$XDG_STATE_HOME/zsh/history
 HISTSIZE=10000
 SAVEHIST=10000
 REPORTTIME=3
@@ -178,8 +179,8 @@ if (( $+commands[brew] )); then
 fi
 
 # psql
-[[ -d $XDG_DATA_HOME/psql ]] || mkdir -p $XDG_DATA_HOME/psql
-export PSQL_HISTORY="$XDG_DATA_HOME/psql/history"
+[[ -d $XDG_STATE_HOME/psql ]] || mkdir -p $XDG_STATE_HOME/psql
+export PSQL_HISTORY="$XDG_STATE_HOME/psql/history"
 
 # Python
 export PYTHONSTARTUP="$XDG_CONFIG_HOME/python3/startup.py"
