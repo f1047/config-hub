@@ -1,11 +1,12 @@
-Host github.com
-    ForwardX11 no
-
 Host *
-    ServerAliveInterval 300
-    ServerAliveCountMax 10
-    ForwardX11 yes
-    ForwardX11trusted yes
-    ForwardAgent yes
+   ServerAliveInterval 300
+   ServerAliveCountMax 10
+   # Forwarding is disabled by default for security.
+   # Enable per-host if needed:
+   #   Host bastion.example.com
+   #       ForwardAgent yes
+   ForwardX11 no
+   ForwardX11trusted no
+   ForwardAgent no
 
 # vim: filetype=sshconfig
