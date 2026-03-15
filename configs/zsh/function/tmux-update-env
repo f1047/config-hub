@@ -1,4 +1,17 @@
 #!/usr/bin/env zsh
 
-eval "export $(tmux show-environment | grep -v "^-" | sed -e 's/=/="/g' -e 's/$/"/g')"
-
+tmux show-environment | while IFS= read -r line; do
+   if [[ $line == -* ]]; then
+      # Lines starting with '-' mean the variable should be unset
+      local name=${line#-}
+      if [[ $name == [A-Za-z_][A-Za-z0-9_]* ]]; then
+         unset "$name"
+      fi
+   else
+      local name=${line%%=*}
+      local value=${line#*=}
+      if [[ $name == [A-Za-z_][A-Za-z0-9_]* ]]; then
+         export "$name=$value"
+      fi
+   fi
+done
