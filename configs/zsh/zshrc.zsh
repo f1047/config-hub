@@ -259,6 +259,10 @@ if (( $+commands[git] && $+commands[fzf] )); then
    autoload -Uz git-checkout-fzf
 fi
 
+if (( $+commands[ghq] && $+commands[fzf] )); then
+   autoload -Uz ghq-cd-fzf
+fi
+
 alias xbrew='arch -x86_64 /usr/local/bin/brew'
 alias abrew='arch -arm64 /opt/Homebrew/bin/brew'
 

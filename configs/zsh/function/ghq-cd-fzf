@@ -1,0 +1,6 @@
+#!zsh
+
+local dir="$(ghq list --full-path | fzf --header='Jump to a ghq-managed repository')"
+if [[ -d "$dir" ]]; then
+   cd "$dir"
+fi
