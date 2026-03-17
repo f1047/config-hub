@@ -1,6 +1,11 @@
 #!zsh
 
+if ! git rev-parse --is-inside-work-tree > /dev/null 2>&1; then
+   printf "Not in a git repository" >&2
+   exit 1
+fi
+
 local branches=$(git branch --all | grep -v HEAD)
-local branch=$(echo "$branches" | fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m)
+local branch=$(echo "$branches" | fzf -d $(( 2 + $(wc -l <<< "$branches") )) +m)
 
 git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
