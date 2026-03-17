@@ -284,7 +284,7 @@ zsource $XDG_DATA_HOME/zsh/zshrc.after.zsh
 
 # Attach existing tmux session or create new one
 # https://qiita.com/ssh0/items/a9956a74bff8254a606a
-
+# TODO: Move to function
 () {
    autoload -Uz is-at-least
    ! is-at-least 5.2.0 && return 0
