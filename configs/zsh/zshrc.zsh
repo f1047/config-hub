@@ -1,8 +1,8 @@
 # zshrc
 
 autoload -U zsource
-zsource $ZDOTDIR/local/zshrc.zsh
-zsource $XDG_DATA_HOME/zsh/zshrc.zsh
+zsource $ZDOTDIR/local/zshrc.before.zsh
+zsource $XDG_DATA_HOME/zsh/zshrc.before.zsh
 
 # Create XDG Base Directory as needed
 [[ -d $XDG_DATA_HOME/zsh ]]  || mkdir -p $XDG_DATA_HOME/zsh
@@ -278,6 +278,9 @@ if [[ -n $TMUX ]]; then
    add-zsh-hook preexec tmux-update-env
    alias ssh='TERM=${TERM%%-italic} ssh'
 fi
+
+zsource $ZDOTDIR/local/zshrc.after.zsh
+zsource $XDG_DATA_HOME/zsh/zshrc.after.zsh
 
 # Attach existing tmux session or create new one
 # https://qiita.com/ssh0/items/a9956a74bff8254a606a
