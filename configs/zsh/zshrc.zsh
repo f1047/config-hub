@@ -257,7 +257,6 @@ fi
 
 if (( $+commands[git] && $+commands[fzf] )); then
    autoload -Uz git-checkout-fzf
-   autoload -Uz git-show-fzf
 fi
 
 alias xbrew='arch -x86_64 /usr/local/bin/brew'
