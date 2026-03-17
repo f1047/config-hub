@@ -22,6 +22,7 @@ typeset -T -Ux CPATH cpath
 fpath=(
    $ZDOTDIR/function(N-/)
    $ZDOTDIR/local/function(N-/)
+   $XDG_DATA_HOME/zsh/function(N-/)
    $fpath[@]
 )
 
