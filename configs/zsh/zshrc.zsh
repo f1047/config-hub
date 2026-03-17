@@ -175,7 +175,7 @@ fi
 
 # brew
 if (( $+commands[brew] )); then
-   eval "$(brew shellenv | grep -v 'PATH')"
+   eval "$(brew shellenv | grep -w -v 'PATH')"
 fi
 
 # psql
