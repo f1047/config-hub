@@ -139,7 +139,7 @@ class ContextUsageComponent:
       if self.pct is None:
          return None
       tokens = f"{fmt_k(self.used)}/{fmt_k(self.max)}" if self.used and self.max else fmt_k(self.max)
-      text = f"💬{bar(self.pct)}{self.pct:.0f}% {tokens}"
+      text = f"💬{bar(self.pct)} {self.pct:.0f}% {tokens}"
       return maybe_color(text, self.pct)
 
 
@@ -153,7 +153,7 @@ class SessionUsageComponent:
       if self.pct is None:
          return None
       time_str = f" -{time_remaining(self.resets_at)}" if self.resets_at else ""
-      text = f"⏱️{bar(self.pct)}{self.pct:.0f}%{time_str}"
+      text = f"⏱️{bar(self.pct)} {self.pct:.0f}%{time_str}"
       return maybe_color(text, self.pct)
 
 
@@ -167,7 +167,7 @@ class WeeklyUsageComponent:
       if self.pct is None:
          return None
       time_str = f" -{time_remaining(self.resets_at)}" if self.resets_at else ""
-      text = f"📅{bar(self.pct)}{self.pct:.0f}%{time_str}"
+      text = f"📅{bar(self.pct)} {self.pct:.0f}%{time_str}"
       return maybe_color(text, self.pct)
 
 
