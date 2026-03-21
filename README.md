@@ -22,7 +22,9 @@ Run `setup.sh` again to update the symlinks after making changes to the configs 
 
 | Directory | Description |
 | --- | --- |
-| `configs/` | Contains configuration files for various tools, expected to be symlinked to an appropriate location in the user's home directory |
-| `platforms/` | Contains platform-specific configuration files or scripts |
-| `templates/` | Contains template files for configurations that require user-specific information |
+| `configs/<program>/entities/` | Symlink targets — the directory itself gets symlinked to `~/.config/<program>` |
+| `configs/<program>/scripts/` | Setup scripts, templates, and Brewfiles called during installation |
 | `utils/` | Contains pure utility scripts |
+
+Programs with only config files (fish, ghostty, nvim, tmux, vim, zsh) have an `entities/` subdirectory.
+Programs with setup logic (brew, defaults, git, ssh) have a `scripts/` subdirectory (and optionally `entities/`).

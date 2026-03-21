@@ -6,9 +6,6 @@ this_dir="$(cd "$(dirname "$0")"; pwd)"
 
 . "$project_root"/utils/header.sh
 
-# Apply macOS defaults
-sh "$this_dir"/defaults.sh
-
 # Resolve the correct Homebrew binary
 # sysctl hw.optional.arm64 returns 1 on Apple Silicon even under Rosetta 2
 if [ "$(sysctl -n hw.optional.arm64 2>/dev/null)" = "1" ]; then
