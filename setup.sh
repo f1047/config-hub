@@ -42,6 +42,7 @@ link_with_backup "$project_root"/configs/vim/entities        "$HOME"/.config/vim
 link_with_backup "$project_root"/configs/zsh/entities        "$HOME"/.config/zsh        "$backup_dir"/zsh
 ## Link .zshenv individually to set $ZDOTDIR
 link_with_backup "$project_root"/configs/zsh/entities/.zshenv "$HOME"/.zshenv "$backup_dir"/zshenv
+link_with_backup "$project_root"/configs/claude/entities/skills/save-plan  "$HOME"/.claude/skills/save-plan  "$backup_dir"/claude-skills
 
 if [ -d "$backup_dir" ]; then
    printf "$(header info) Backed up existing config files to $backup_dir\n"
