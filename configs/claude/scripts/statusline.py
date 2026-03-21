@@ -61,7 +61,7 @@ def maybe_color(text, pct):
 
 class ModelComponent:
    def __init__(self, data: dict):
-      model = data.get("model", {})
+      model = data.get("model") or {}
       self.name = model.get("display_name") or model.get("id") or "?"
 
    def render(self):
@@ -126,10 +126,10 @@ class VersionComponent:
 
 class ContextUsageComponent:
    def __init__(self, data: dict):
-      ctx = data.get("context_window", {})
+      ctx = data.get("context_window") or {}
       self.pct = ctx.get("used_percentage")
       self.max = ctx.get("context_window_size")
-      current = ctx.get("current_usage", {})
+      current = ctx.get("current_usage") or {}
       self.used = sum(
          current.get(k, 0)
          for k in ("input_tokens", "output_tokens", "cache_creation_input_tokens", "cache_read_input_tokens")
@@ -145,7 +145,7 @@ class ContextUsageComponent:
 
 class SessionUsageComponent:
    def __init__(self, data: dict):
-      five_hour = data.get("rate_limits", {}).get("five_hour", {})
+      five_hour = (data.get("rate_limits") or {}).get("five_hour") or {}
       self.pct = five_hour.get("used_percentage")
       self.resets_at = five_hour.get("resets_at")
 
@@ -159,7 +159,7 @@ class SessionUsageComponent:
 
 class WeeklyUsageComponent:
    def __init__(self, data: dict):
-      seven_day = data.get("rate_limits", {}).get("seven_day", {})
+      seven_day = (data.get("rate_limits") or {}).get("seven_day") or {}
       self.pct = seven_day.get("used_percentage")
       self.resets_at = seven_day.get("resets_at")
 
