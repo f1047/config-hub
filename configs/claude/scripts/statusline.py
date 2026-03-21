@@ -180,7 +180,7 @@ def main():
    raw = sys.stdin.read()
 
    if os.environ.get("DEBUG_CLAUDE_CODE_STATUSLINE"):
-      with open("/tmp/statusline-debug.json", "w") as f:
+      with open("/tmp/claude-code-statusline-debug.json", "w") as f:
          f.write(raw)
 
    data = json.loads(raw)
