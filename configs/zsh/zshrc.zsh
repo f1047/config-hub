@@ -192,6 +192,11 @@ export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle/config"
 export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle/cache"
 export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle/plugin"
 
+# navi
+if (( $+commands[navi] )); then
+   eval "$(navi widget zsh)"
+fi
+
 # Use neovim as default
 if (( ${+commands[nvim]} )); then
    alias vim="nvim"
