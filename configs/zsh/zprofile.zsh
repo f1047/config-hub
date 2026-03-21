@@ -1,7 +1,6 @@
 # zprofile
 
 autoload -U zsource
-zsource $ZDOTDIR/local/zprofile.before.zsh
 zsource $XDG_DATA_HOME/zsh/zprofile.before.zsh
 
 case "$(uname -s)" in
@@ -23,5 +22,4 @@ if [[ $OSTYPE =~ linux && "$(uname -a)" =~ (#i)microsoft ]]; then
 fi
 setopt noextended_glob
 
-zsource $ZDOTDIR/local/zprofile.after.zsh
 zsource $XDG_DATA_HOME/zsh/zprofile.after.zsh

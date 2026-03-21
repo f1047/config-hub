@@ -32,7 +32,7 @@
    wsErrorHighlight = all
 
 [include]
-   path = local/config
+   path = ~/.local/share/git/config
 
 [filter "lfs"]
    process = git-lfs filter-process

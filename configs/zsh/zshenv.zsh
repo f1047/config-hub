@@ -1,7 +1,6 @@
 # zshenv
 
 autoload -U zsource
-zsource $ZDOTDIR/local/zshenv.before.zsh
 zsource $XDG_DATA_HOME/zsh/zshenv.before.zsh
 
 setopt no_global_rcs # Skip loading /etc/zprofile etc.
@@ -118,5 +117,4 @@ else
    unset WCWIDTH_CJK
 fi
 
-zsource $ZDOTDIR/local/zshenv.after.zsh
 zsource $XDG_DATA_HOME/zsh/zshenv.after.zsh
