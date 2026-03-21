@@ -1,0 +1,7 @@
+[tool.ruff]
+line-length = 120
+indent-width = 3
+target-version = "py39"
+
+[tool.mypy]
+python_version = "3.9"

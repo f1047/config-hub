@@ -11,6 +11,7 @@ if [ "$(uname)" = "Darwin" ]; then
    sh "$project_root"/configs/brew/scripts/setup.sh
 fi
 
+sh "$project_root"/configs/claude/scripts/setup.sh
 sh "$project_root"/configs/git/scripts/setup.sh
 sh "$project_root"/configs/ssh/scripts/setup.sh
 
