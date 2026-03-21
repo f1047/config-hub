@@ -22,3 +22,11 @@ else
    printf "$(header error) Failed to update ~/.claude/settings.json\n" >&2
    exit 1
 fi
+
+. "$project_root"/utils/link.sh
+
+# Link skills individually
+link_with_backup \
+   "$project_root"/configs/claude/entities/skills/save-plan \
+   "$HOME"/.claude/skills/save-plan \
+   "claude-skills"

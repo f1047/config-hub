@@ -20,3 +20,10 @@ if [ ! -e "$git_local_config" ]; then
    printf "$(header info) Configured git local config:\n"
    cat "$git_local_config"
 fi
+
+. "$project_root"/utils/link.sh
+
+link_with_backup \
+   "$project_root"/configs/git/entities \
+   "$HOME"/.config/git \
+   "git"
