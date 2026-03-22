@@ -65,7 +65,7 @@ class ModelComponent:
       self.name = model.get("display_name") or model.get("id") or "?"
 
    def render(self):
-      return f"🧠{color(self.name, CYAN)}"
+      return f"\uf2db {color(self.name, CYAN)}"
 
 
 class DirComponent:
@@ -74,7 +74,7 @@ class DirComponent:
       self.name = cwd.name if cwd.exists() else "?"
 
    def render(self):
-      return f"📁{color(self.name, CYAN)}"
+      return f"\uf07b {color(self.name, CYAN)}"
 
 
 class GitComponent:
@@ -113,7 +113,7 @@ class GitComponent:
       diff_str = ""
       if self.insertions or self.deletions:
          diff_str = f" {color(f'+{self.insertions}', GREEN)}/{color(f'-{self.deletions}', RED)}"
-      return f"🔀{self.branch}{files_str}{diff_str}"
+      return f"\ue0a0 {self.branch}{files_str}{diff_str}"
 
 
 class VersionComponent:
@@ -139,7 +139,7 @@ class ContextUsageComponent:
       if self.pct is None:
          return None
       tokens = f"{fmt_k(self.used)}/{fmt_k(self.max)}" if self.used and self.max else fmt_k(self.max)
-      text = f"💬{bar(self.pct)} {self.pct:.0f}% {tokens}"
+      text = f"\uf075 {bar(self.pct)} {self.pct:.0f}% {tokens}"
       return maybe_color(text, self.pct)
 
 
@@ -153,7 +153,7 @@ class SessionUsageComponent:
       if self.pct is None:
          return None
       time_str = f" -{time_remaining(self.resets_at)}" if self.resets_at else ""
-      text = f"⏱️{bar(self.pct)} {self.pct:.0f}%{time_str}"
+      text = f"\uf017 {bar(self.pct)} {self.pct:.0f}%{time_str}"
       return maybe_color(text, self.pct)
 
 
@@ -167,7 +167,7 @@ class WeeklyUsageComponent:
       if self.pct is None:
          return None
       time_str = f" -{time_remaining(self.resets_at)}" if self.resets_at else ""
-      text = f"📅{bar(self.pct)} {self.pct:.0f}%{time_str}"
+      text = f"\uf073 {bar(self.pct)} {self.pct:.0f}%{time_str}"
       return maybe_color(text, self.pct)
 
 
