@@ -177,13 +177,21 @@ class WeeklyUsageComponent:
 
 
 def main():
-   raw = sys.stdin.read()
+   sys.stdout.reconfigure(encoding="utf-8")
+   raw = sys.stdin.read().strip()
 
-   if os.environ.get("DEBUG_CLAUDE_CODE_STATUSLINE"):
-      with open("/tmp/claude-code-statusline-debug.json", "w") as f:
+   debug_file = os.environ.get("DEBUG_CLAUDE_CODE_STATUSLINE")
+   if debug_file:
+      with open(debug_file, "w") as f:
          f.write(raw)
 
-   data = json.loads(raw)
+   if not raw:
+      return
+
+   try:
+      data = json.loads(raw)
+   except json.JSONDecodeError:
+      return
 
    line1 = [
       ModelComponent(data),
