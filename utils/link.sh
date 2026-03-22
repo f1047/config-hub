@@ -5,7 +5,7 @@
 project_root="$(git rev-parse --show-toplevel)"
 . "$project_root"/utils/header.sh
 
-link_with_backup() {
+link() {
    src="$1"
    dst="$2"
    bak="$CONFIGHUB_BACKUP_DIR/$3"

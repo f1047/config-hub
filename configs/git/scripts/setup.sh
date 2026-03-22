@@ -23,7 +23,7 @@ fi
 
 . "$project_root"/utils/link.sh
 
-link_with_backup \
+link \
    "$project_root"/configs/git/entities \
    "$HOME"/.config/git \
    "git"

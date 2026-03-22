@@ -26,7 +26,7 @@ fi
 . "$project_root"/utils/link.sh
 
 # Link skills individually
-link_with_backup \
+link \
    "$project_root"/configs/claude/entities/skills/save-plan \
    "$HOME"/.claude/skills/save-plan \
    "claude-skills"

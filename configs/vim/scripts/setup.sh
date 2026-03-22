@@ -5,7 +5,7 @@ project_root="$(git rev-parse --show-toplevel)"
 
 . "$project_root"/utils/link.sh
 
-link_with_backup \
+link \
    "$project_root"/configs/vim/entities \
    "$HOME"/.config/vim \
    "vim"
