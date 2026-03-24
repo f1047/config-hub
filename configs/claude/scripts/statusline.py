@@ -15,6 +15,7 @@ GREEN = 32
 RED = 31
 CYAN = 36
 YELLOW = 33
+MAGENTA = 35
 
 
 def color(text, code):
@@ -46,6 +47,8 @@ def usage_color(pct):
       return YELLOW
    if pct >= 40:
       return GREEN
+   if pct >= 20:
+      return CYAN
    return None
 
 
@@ -65,7 +68,7 @@ class ModelComponent:
       self.name = model.get("display_name") or model.get("id") or "?"
 
    def render(self):
-      return f"\uf2db {color(self.name, CYAN)}"
+      return f"\uf2db {color(self.name, MAGENTA)}"
 
 
 class DirComponent:
@@ -74,7 +77,7 @@ class DirComponent:
       self.name = cwd.name if cwd.exists() else "?"
 
    def render(self):
-      return f"\uf07b {color(self.name, CYAN)}"
+      return f"\uf07b {color(self.name, MAGENTA)}"
 
 
 class GitComponent:
