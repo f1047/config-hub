@@ -12,6 +12,10 @@ compile_commands.json
 .claude/**/*.local.md
 .claude/settings.local.json
 
+# Mise
+mise.local.toml
+
+
 # Created by https://www.gitignore.io/api/linux,macos,windows
 
 ### Linux ###
