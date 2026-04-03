@@ -90,7 +90,7 @@ class GitComponent:
       self._collect()
 
    def _git(self, args):
-      result = subprocess.run(["git"] + args, cwd=self.cwd, capture_output=True, text=True)
+      result = subprocess.run(["git", "--no-optional-locks"] + args, cwd=self.cwd, capture_output=True, text=True)
       return result.stdout.strip() if result.returncode == 0 else None
 
    def _collect(self):
