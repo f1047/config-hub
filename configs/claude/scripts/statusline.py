@@ -198,17 +198,19 @@ def main():
 
    line1 = [
       ModelComponent(data),
-      DirComponent(data),
-      GitComponent(data),
       VersionComponent(data),
    ]
    line2 = [
+      DirComponent(data),
+      GitComponent(data),
+   ]
+   line3 = [
       ContextUsageComponent(data),
       SessionUsageComponent(data),
       WeeklyUsageComponent(data),
    ]
 
-   for line in [line1, line2]:
+   for line in [line1, line2, line3]:
       parts = [c.render() for c in line]
       parts = [p for p in parts if p]
       if parts:
