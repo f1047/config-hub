@@ -1,16 +1,17 @@
 ---
 name: save-plan
 description: Copies the current plan to the project's `.claude/plans/` directory. Common triggers are "save plan", "save this plan", "copy plan to this project"
-allowed-tools: Read, Glob, Write
+allowed-tools: [Read, Glob, Bash(cp *)]
 ---
 
-Copy your current plan in the plan mode to the `.claude/plans/` directory.
+Copy your current plan to the `.claude/plans/` directory by executing `cp`.
 
-If you are not in plan mode, respond with "You are not in plan mode. Please switch to plan mode to save your plan." and do not perform any file operations.
+If no plan found, do not perform any file operations.
 
-# Instructions
+# Naming conventions
 
 The name format should be lowercase, use hyphens instead of spaces, and avoid special characters.
+
 If the user provides a name for the plan, save the plan with that name with appropriate formatting.
 If not, generate a descriptive name based on the content of the plan.
 
