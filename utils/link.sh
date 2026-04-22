@@ -15,5 +15,6 @@ link() {
       mv "$dst" "$bak"
    fi
    printf "$(header info) Linking: $src -> $dst\n"
+   mkdir -p "$(dirname $dst)"
    ln -sfn "$src" "$dst"
 }
