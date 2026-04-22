@@ -17,7 +17,7 @@ fi
 # Install Homebrew packages
 if [ -x "$brew_bin" ]; then
    printf "$(header info) Installing Homebrew ($brew_bin) packages from Brewfile...\n"
-   "$brew_bin" bundle --file="$this_dir"/Brewfile
+   "$brew_bin" bundle --file="$this_dir"/Brewfile --verbose
 else
    printf "$(header info) Homebrew not found at $brew_bin. Install from https://brew.sh and re-run setup.\n"
 fi

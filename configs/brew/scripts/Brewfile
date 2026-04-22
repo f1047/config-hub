@@ -1,25 +1,4 @@
-tap "homebrew/core"
-
-brew "coreutils"
-brew "gemini-cli"
-brew "gh"
-brew "ghq"
-brew "git"
-brew "jq"
-brew "navi"
-brew "neovim"
-brew "sshpass"
-brew "telnet"
-brew "tmux"
-brew "tree"
-
-cask "claude-code"
-cask "codex"
-cask "devtoys"
-cask "ghostty"
-cask "hiddenbar"
-cask "keycastr"
-cask "xcodes-app"
-
+# Keep this minimal
+# Better to focus on often forgotten but important apps
 mas "RunCat", id: 1429033973
 mas "Time Out", id: 402592703
