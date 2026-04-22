@@ -45,15 +45,15 @@ export LS_COLORS=di="1;34:ln=35:so=32:pi=33:ex=31:bd=30;46:cd=30;43:su=30;41:sg=
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 alias grep='grep --color=auto --exclude-dir=".git" --exclude-dir=".ccls-cache"'
 
-case $OSTYPE in
-linux*)
-   alias ls='ls --color=auto --group-directories-first'
-   zstyle ':completion:*' list-dirs-first true
-   ;;
-mac*)
-   export LSCOLORS="Exfxcxdxbxagadabaghcad"
-   export CLICOLOR=1
-   ;;
+case $(uname -s) in
+   Linux)
+      alias ls='ls --color=auto --group-directories-first'
+      zstyle ':completion:*' list-dirs-first true
+      ;;
+   Darwin)
+      export LSCOLORS="Exfxcxdxbxagadabaghcad"
+      export CLICOLOR=1
+      ;;
 esac
 
 #=========#
@@ -156,40 +156,24 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns \
 stty stop   undef   # Free Ctrl-S
 stty start  undef   # Free Ctrl-Q
 
-# rbenv
-if [[ -d $RBENV_ROOT ]]; then
-   eval "$(rbenv init - | grep -v 'rbenv rehash' | grep -v 'PATH')"
-   autoload -Uz rbenv-update
-fi
-
-if [[ -v WSL_INTEROP ]]; then
-   autoload -Uz daemonize-wsl-systemd nsenter-wsl-systemd
-fi
-
-# pyenv
-if [[ -d $PYENV_ROOT ]]; then
-   eval "$(pyenv init - | grep -v 'pyenv rehash' | grep -v 'PATH')"
-   autoload -Uz pyenv-update
-fi
-
 # brew
-if (( $+commands[brew] )); then
-   eval "$(brew shellenv | grep -w -v 'PATH')"
+case $(uname -s) in
+   Linux)
+      BREW_ROOT=${BREW_ROOT:-/home/linuxbrew/.linuxbrew}
+      ;;
+   Darwin)
+      BREW_ROOT=${BREW_ROOT:-/opt/homebrew}
+      ;;
+esac
+if [[ -d $BREW_ROOT ]]; then
+   eval "$($BREW_ROOT/bin/brew shellenv)"
+else
+   unset BREW_ROOT
 fi
 
 # psql
 [[ -d $XDG_STATE_HOME/psql ]] || mkdir -p $XDG_STATE_HOME/psql
 export PSQL_HISTORY="$XDG_STATE_HOME/psql/history"
-
-# Python
-export PYTHONSTARTUP="$XDG_CONFIG_HOME/python3/startup.py"
-
-# Ruby
-export IRBRC="$XDG_CONFIG_HOME/irb/irbrc"
-export GEM_SPEC_CACHE="$XDG_CACHE_HOME/gem"
-export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME/bundle/config"
-export BUNDLE_USER_CACHE="$XDG_CACHE_HOME/bundle/cache"
-export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME/bundle/plugin"
 
 # navi
 if (( $+commands[navi] )); then
@@ -273,7 +257,7 @@ alias abrew='arch -arm64 /opt/Homebrew/bin/brew'
 compdef zsource='source'
 
 # Clipboard compatibility
-if [[ $OSTYPE =~ linux ]] && (( $+commands[xclip] )); then
+if [[ $(uname -s) = Linux ]] && (( $+commands[xclip] )); then
    alias pbcopy='xclip -sel c'
    alias pbpaste='xclip -sel c -o'
 fi
