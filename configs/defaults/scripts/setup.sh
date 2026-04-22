@@ -63,6 +63,9 @@ defaults write com.apple.dock minimize-to-application -bool true
 # Don't show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
+# Clear all default app icons from the Dock
+defaults write com.apple.dock persistent-apps -array
+
 ###############################################################################
 # Finder
 ###############################################################################
