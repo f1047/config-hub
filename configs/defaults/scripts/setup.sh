@@ -79,9 +79,6 @@ defaults write com.apple.dock orientation -string "left"
 # Set Dock icon size
 defaults write com.apple.dock tilesize -int 77
 
-# Minimize windows into application icon
-defaults write com.apple.dock minimize-to-application -bool true
-
 # Don't show recent applications in Dock
 defaults write com.apple.dock show-recents -bool false
 
