@@ -8,14 +8,31 @@ project_root="$(git rev-parse --show-toplevel)"
 printf "$(header info) Applying macOS defaults...\n"
 
 ###############################################################################
-# General UI/UX
+# System Appearance
 ###############################################################################
 
-# Always show file extensions in Finder
+# Always show file extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Always show scrollbars
 defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
+
+# Set appearance to auto (switches between light/dark based on system)
+defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool true
+
+###############################################################################
+# Desktop & Window Manager
+###############################################################################
+
+# Disable double-click to minimize window
+defaults write NSGlobalDomain AppleMiniaturizeOnDoubleClick -bool false
+
+# Disable click desktop to show/hide windows
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+
+###############################################################################
+# Keyboard
+###############################################################################
 
 # Disable press-and-hold for keys in favor of key repeat
 defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
@@ -35,14 +52,19 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
-# Disable double-click to minimize window
-defaults write NSGlobalDomain AppleMiniaturizeOnDoubleClick -bool false
-
-# Set appearance to auto (switches between light/dark based on system)
-defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool true
-
 # Set keyboard shortcut for Lock Screen: Ctrl+Option+Cmd+L
 defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Lock Screen" "@~^l"
+
+###############################################################################
+# Trackpad
+###############################################################################
+
+# Enable tap-to-click
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+
+# Use traditional (non-natural) scroll direction
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 ###############################################################################
 # Dock
@@ -75,23 +97,5 @@ defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
 # Set new Finder window target to All My Files
 defaults write com.apple.finder NewWindowTarget -string "PfAF"
-
-###############################################################################
-# Trackpad
-###############################################################################
-
-# Enable tap-to-click
-defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
-defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
-
-# Use traditional (non-natural) scroll direction
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
-
-###############################################################################
-# Desktop & Window Manager
-###############################################################################
-
-# Disable click desktop to show/hide windows
-defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
 
 printf "$(header info) macOS defaults applied. Some changes require logout/restart to take effect.\n"
