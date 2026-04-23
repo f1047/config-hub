@@ -29,6 +29,11 @@ REPORTTIME=3
 LISTMAX=0
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude "/" for ctrl-W convenience
 
+# Disable correction
+ENABLE_CORRECTION="false"
+unsetopt correct_all
+unsetopt correct
+
 #========#
 # keymap #
 #========#
