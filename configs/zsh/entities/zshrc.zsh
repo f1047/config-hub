@@ -8,62 +8,10 @@ zsource $XDG_DATA_HOME/zsh/zshrc.before.zsh
 [[ -d $XDG_CACHE_HOME/zsh ]] || mkdir -p $XDG_CACHE_HOME/zsh
 [[ -d $XDG_STATE_HOME/zsh ]] || mkdir -p $XDG_STATE_HOME/zsh
 
-#==============================================================================
-# BASIC CONFIG
+###############################################################################
+# Plugins (zinit)
+###############################################################################
 
-#======#
-# opts #
-#======#
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
-setopt share_history
-setopt auto_cd
-setopt auto_pushd
-setopt correct
-setopt list_packed
-setopt no_beep
-HISTFILE=$XDG_STATE_HOME/zsh/history
-HISTSIZE=10000
-SAVEHIST=10000
-REPORTTIME=3
-LISTMAX=0
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude "/" for ctrl-W convenience
-
-# Disable correction
-ENABLE_CORRECTION="false"
-unsetopt correct_all
-unsetopt correct
-
-#========#
-# keymap #
-#========#
-bindkey -d  # reset keybind
-bindkey -e  # emacs keybind
-
-#=======#
-# color #
-#=======#
-autoload -Uz add-zsh-hook
-autoload -U colors && colors
-
-export LS_COLORS=di="1;34:ln=35:so=32:pi=33:ex=31:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=37;42:ow=30;43"
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-alias grep='grep --color=auto --exclude-dir=".git" --exclude-dir=".ccls-cache"'
-
-case $(uname -s) in
-   Linux)
-      alias ls='ls --color=auto --group-directories-first'
-      zstyle ':completion:*' list-dirs-first true
-      ;;
-   Darwin)
-      export LSCOLORS="Exfxcxdxbxagadabaghcad"
-      export CLICOLOR=1
-      ;;
-esac
-
-#=========#
-# plugins #
-#=========#
 typeset -g -A ZINIT
 ZINIT[HOME_DIR]=$XDG_CACHE_HOME/zinit
 ZINIT[BIN_DIR]=$ZINIT[HOME_DIR]/bin
@@ -81,27 +29,62 @@ if [[ -f $ZINIT[BIN_DIR]/zinit.zsh ]]; then
 fi
 
 if (( $+functions[zinit] )); then
+   # Prompt (pure)
    zinit ice pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
 
+   # Executables
    zinit ice as"program" pick"bin/*" src"shell/key-bindings.zsh" atclone"./install --bin" atpull"%atclone"; zinit light junegunn/fzf
 
-   zinit ice wait"0" blockf; zinit light zsh-users/zsh-completions
-   zinit ice wait"0" atload"_zsh_autosuggest_start"; zinit light zsh-users/zsh-autosuggestions
-
+   # Cosmetic
    zinit ice wait"0" atinit"zpcompinit; zpcdreplay"; zinit light zsh-users/zsh-syntax-highlighting
    zinit ice wait"0" atload"zpcompinit; zpcdreplay"; zinit light ascii-soup/zsh-url-highlighter
    zinit ice wait"0" blockf; zinit snippet OMZ::plugins/colored-man-pages/colored-man-pages.plugin.zsh
 
+   # Experience
+   zinit ice wait"0" atload"_zsh_autosuggest_start"; zinit light zsh-users/zsh-autosuggestions
+
+   # Function development
    zinit ice wait"0"; zinit light mollifier/zload
 
-   # completions
+   # Completions
+   zinit ice wait"0" blockf; zinit light zsh-users/zsh-completions
    zinit ice lucid nocompile; zinit load MenkeTechnologies/zsh-cargo-completion
-   zinit ice wait"0" as"completion"; zinit light gangleri/pipenv
 fi
 
-#============#
-# completion #
-#============#
+###############################################################################
+# Basic
+###############################################################################
+
+HISTFILE=$XDG_STATE_HOME/zsh/history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt share_history
+
+setopt auto_cd
+setopt auto_pushd
+
+LISTMAX=0 # show all completion candidates
+setopt list_packed
+
+setopt no_beep
+
+REPORTTIME=3
+
+# Disable correction
+ENABLE_CORRECTION="false"
+unsetopt correct_all
+unsetopt correct
+
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude "/" for ctrl-W convenience
+bindkey -d  # reset keybind
+bindkey -e  # emacs keybind
+
+###############################################################################
+# Completion
+###############################################################################
+
 autoload +X -U compinit && compinit -C -d $XDG_CACHE_HOME/zsh/compdump
 
 autoload -U history-search-end
@@ -155,11 +138,43 @@ zstyle ':completion:*:(ssh|scp|rsync):*:hosts-ipaddr' ignored-patterns \
    '^(<->.<->.<->.<->|(|::)([[:xdigit:].]##:(#c,2))##(|%*))' \
    '127.0.0.<->' '255.255.255.255' '::1' 'fe80::*'
 
-#==============================================================================
-# APPLICATION
-
 stty stop   undef   # Free Ctrl-S
 stty start  undef   # Free Ctrl-Q
+
+###############################################################################
+# Applications
+###############################################################################
+
+# Editors
+if [[ "$TERM_PROGRAM" == "vscode" ]]; then
+   export VISUAL="code --wait"
+   export EDITOR="$VISUAL"
+elif [[ "$TERM_PROGRAM" == "zed" ]]; then
+   export VISUAL="zed"
+   export EDITOR="$VISUAL"
+elif (( $+commands[nvim] )); then
+   export VISUAL="nvim"
+   export EDITOR="$VISUAL"
+else
+   export VISUAL="vim"
+   export EDITOR="$VISUAL"
+fi
+
+# ls
+autoload -Uz add-zsh-hook
+autoload -U colors && colors
+export LS_COLORS=di="1;34:ln=35:so=32:pi=33:ex=31:bd=30;46:cd=30;43:su=30;41:sg=30;46:tw=37;42:ow=30;43"
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+case $(uname -s) in
+   Linux)
+      alias ls='ls --color=auto --group-directories-first'
+      zstyle ':completion:*' list-dirs-first true
+      ;;
+   Darwin)
+      export LSCOLORS="Exfxcxdxbxagadabaghcad"
+      export CLICOLOR=1
+      ;;
+esac
 
 # brew
 case $(uname -s) in
@@ -185,60 +200,40 @@ if (( $+commands[navi] )); then
    eval "$(navi widget zsh)"
 fi
 
-# Use neovim as default
-if (( ${+commands[nvim]} )); then
-   alias vim="nvim"
-else
-   export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
-fi
-
-# editors
-if [[ "$TERM_PROGRAM" == "vscode" ]]; then
-   export VISUAL="code --wait"
-   export EDITOR="$VISUAL"
-elif [[ "$TERM_PROGRAM" == "zed" ]]; then
-   export VISUAL="zed"
-   export EDITOR="$VISUAL"
-elif (( $+commands[nvim] )); then
-   export VISUAL="nvim"
-   export EDITOR="$VISUAL"
-else
-   export VISUAL="vim"
-   export EDITOR="$VISUAL"
-fi
+# vim
+export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
 
 # tmux
+## config
 export TMUX_CONFIG_DIR=$XDG_CONFIG_HOME/tmux
 alias tmux='tmux -f $TMUX_CONFIG_DIR/tmux.conf'
-
-# less config
-if (( $+commands[lesskey] )); then
-   () {
-      local conf_dir=$XDG_CONFIG_HOME/less
-      local lesskey_conf=$conf_dir/lesskey
-      [[ -f $lesskey_conf ]] || return 0
-      export LESSKEY=$conf_dir/less
-      lesskey $lesskey_conf
-   }
+## auto-update environment variable
+if [[ -n $TMUX ]]; then
+   autoload -Uz tmux-update-env
+   autoload -Uz add-zsh-hook
+   add-zsh-hook preexec tmux-update-env
 fi
 
-# Grant safety of rm
+# rm
+## safety mechanism
 if (( ${+commands[mv2trash]} )); then
    alias rm='mv2trash'
 else
    alias rm='rm -i'
 fi
 
-(( ${+commands[tac]} )) || alias tac="tail -r"
+# tac
+## alias if unavailable (e.g. on macOS)
+if (( ${+commands[tac]} )); then
+   alias tac="tail -r"
+fi
 
-alias pps='ps -o pid,pgid,ppid,lwp,nlwp,tty,time,etime,stat,psr,pcpu,euser,args'
-compdef pps='ps'
+alias grep='grep --color=auto'
 
-# Suffix oriented alias
 autoload -U unarchive && alias -s {gz,tgz,zip,lzh,bz2,tbz,Z,tar,arj,xz,7z}='unarchive'
 alias -s {png,jpg,bmp,PNG,JPG,BMP}='open'
 
-autoload -Uz color256
+autoload -Uz colors256
 
 if (( $+commands[sshfs] )); then
    autoload -Uz sshmount
@@ -256,9 +251,6 @@ if (( $+commands[ghq] && $+commands[fzf] )); then
    autoload -Uz ghq-cd-fzf
 fi
 
-alias xbrew='arch -x86_64 /usr/local/bin/brew'
-alias abrew='arch -arm64 /opt/Homebrew/bin/brew'
-
 compdef zsource='source'
 
 # Clipboard compatibility
@@ -267,56 +259,4 @@ if [[ $(uname -s) = Linux ]] && (( $+commands[xclip] )); then
    alias pbpaste='xclip -sel c -o'
 fi
 
-# tmux env update hook
-if [[ -n $TMUX ]]; then
-   autoload -Uz tmux-update-env
-   autoload -Uz add-zsh-hook
-   add-zsh-hook preexec tmux-update-env
-   alias ssh='TERM=${TERM%%-italic} ssh'
-fi
-
 zsource $XDG_DATA_HOME/zsh/zshrc.after.zsh
-
-# Attach existing tmux session or create new one
-# https://qiita.com/ssh0/items/a9956a74bff8254a606a
-# TODO: Move to function
-() {
-   autoload -Uz is-at-least
-   ! is-at-least 5.2.0 && return 0
-   (( $+commands[tmux] * $+TMUX )) && return 0
-   (( $+DISABLE_AUTO_TMUX_ATTACH )) && return 0
-   (( $+VSCODE_RESOLVING_ENVIRONMENT )) && return 0
-   [[ "$TERM_PROGRAM" == "vscode" ]] && return 0
-   [[ "$TERM_PROGRAM" == "zed" ]] && return 0
-   [[ "$TERM_PROGRAM" == "WarpTerminal" ]] && return 0
-
-   # Build session lists
-   # Colons(:) are used as delimiter
-   local -a sess_names
-   local sess_list="$(command tmux list-session 2> /dev/null)"
-   if [[ -n $sess_list ]]; then
-      sess_names+=("${(@f)sess_list}")
-   fi
-   local new_sess_id="c"
-   sess_names+=("$new_sess_id: Create new session")
-   local sess_ids=("${(@f)"$(echo ${(F)sess_names} | cut -d: -f1)"}")
-
-   local sess_id
-   if (( $+commands[fzf] )); then
-      sess_id="$(echo ${(F)sess_names[@]} | fzf | cut -d: -f1)"
-   else
-      print -u 2 -l "[TMUX Manager]" \
-         "Do you want to attach or create tmux session?"
-      print -u 2 -l -x 4 -- "\t"$^sess_names
-      read sess_id\?"Please enter ID (${(j:/:)sess_ids}): "
-   fi
-
-   if [[ "$sess_id" == "$new_sess_id" ]]; then
-      tmux -f "$TMUX_CONFIG_DIR/tmux.conf" new-session
-   elif (( $+sess_ids[(re)$sess_id] )); then
-      tmux attach-session -d -t "$sess_id"
-   else
-      print -u 2 -- "Unknown ID: $sess_id. Abort."
-      :  # Start terminal normally
-   fi
-}
