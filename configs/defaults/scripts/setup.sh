@@ -52,6 +52,9 @@ defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool false
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+# Functions keys as standard function keys (F1, F2, etc.) without needing to hold Fn
+defaults write -g com.apple.keyboard.fnState -bool true
+
 # Set keyboard shortcut for Lock Screen: Ctrl+Option+Cmd+L
 defaults write NSGlobalDomain NSUserKeyEquivalents -dict-add "Lock Screen" "@~^l"
 
