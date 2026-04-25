@@ -1,0 +1,6 @@
+vim.api.nvim_command('set number')
+vim.api.nvim_command('set relativenumber')
+vim.api.nvim_command('set cursorline')
+vim.api.nvim_command('set signcolumn=yes')
+vim.api.nvim_command('set colorcolumn=80')
+vim.api.nvim_command('set termguicolors')
