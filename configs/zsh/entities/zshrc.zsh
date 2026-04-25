@@ -198,10 +198,12 @@ export PSQL_HISTORY="$XDG_STATE_HOME/psql/history"
 # navi
 if (( $+commands[navi] )); then
    eval "$(navi widget zsh)"
+   typeset -T -Ux NAVI_PATH navi_path
 fi
 
 # vim
-export VIMINIT=":source $XDG_CONFIG_HOME/vim/vimrc"
+## Alias for custom vimrc; avoid VIMINIT to interfere with neovim's config
+alias vim='vim -u $XDG_CONFIG_HOME/vim/vimrc'
 
 # tmux
 ## config
