@@ -20,6 +20,9 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "Always"
 # Set appearance to auto (switches between light/dark based on system)
 defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool true
 
+# Blur menu bar (Set menu bar background)
+defaults write -g SLSMenuBarUseBlurredAppearance -bool true
+
 ###############################################################################
 # Desktop & Window Manager
 ###############################################################################
