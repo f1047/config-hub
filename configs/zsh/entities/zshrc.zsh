@@ -9,6 +9,36 @@ zsource $XDG_DATA_HOME/zsh/zshrc.before.zsh
 [[ -d $XDG_STATE_HOME/zsh ]] || mkdir -p $XDG_STATE_HOME/zsh
 
 ###############################################################################
+# Basic
+###############################################################################
+
+HISTFILE=$XDG_STATE_HOME/zsh/history
+HISTSIZE=10000
+SAVEHIST=10000
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt share_history
+
+setopt auto_cd
+setopt auto_pushd
+
+LISTMAX=0 # show all completion candidates
+setopt list_packed
+
+setopt no_beep
+
+REPORTTIME=3
+
+# Disable correction
+ENABLE_CORRECTION="false"
+unsetopt correct_all
+unsetopt correct
+
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude "/" for ctrl-W convenience
+bindkey -d  # reset keybind
+bindkey -e  # emacs keybind
+
+###############################################################################
 # Plugins (zinit)
 ###############################################################################
 
@@ -50,36 +80,6 @@ if (( $+functions[zinit] )); then
    zinit ice wait"0" blockf; zinit light zsh-users/zsh-completions
    zinit ice lucid nocompile; zinit load MenkeTechnologies/zsh-cargo-completion
 fi
-
-###############################################################################
-# Basic
-###############################################################################
-
-HISTFILE=$XDG_STATE_HOME/zsh/history
-HISTSIZE=10000
-SAVEHIST=10000
-setopt hist_ignore_all_dups
-setopt hist_ignore_space
-setopt share_history
-
-setopt auto_cd
-setopt auto_pushd
-
-LISTMAX=0 # show all completion candidates
-setopt list_packed
-
-setopt no_beep
-
-REPORTTIME=3
-
-# Disable correction
-ENABLE_CORRECTION="false"
-unsetopt correct_all
-unsetopt correct
-
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>' # exclude "/" for ctrl-W convenience
-bindkey -d  # reset keybind
-bindkey -e  # emacs keybind
 
 ###############################################################################
 # Completion
