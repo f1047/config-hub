@@ -191,6 +191,13 @@ else
    unset BREW_ROOT
 fi
 
+# mise
+if (( $+commands[mise] )); then
+   eval "$(mise activate zsh)"
+   eval "$(mise activate --shims)"
+   eval "$(mise completion zsh)"
+fi
+
 # psql
 [[ -d $XDG_STATE_HOME/psql ]] || mkdir -p $XDG_STATE_HOME/psql
 export PSQL_HISTORY="$XDG_STATE_HOME/psql/history"
