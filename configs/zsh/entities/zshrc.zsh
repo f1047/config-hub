@@ -62,9 +62,6 @@ if (( $+functions[zinit] )); then
    # Prompt (pure)
    zinit ice pick"async.zsh" src"pure.zsh"; zinit light sindresorhus/pure
 
-   # Executables
-   zinit ice as"program" pick"bin/*" src"shell/key-bindings.zsh" atclone"./install --bin" atpull"%atclone"; zinit light junegunn/fzf
-
    # Cosmetic
    zinit ice wait"0" atinit"zpcompinit; zpcdreplay"; zinit light zsh-users/zsh-syntax-highlighting
    zinit ice wait"0" atload"zpcompinit; zpcdreplay"; zinit light ascii-soup/zsh-url-highlighter
