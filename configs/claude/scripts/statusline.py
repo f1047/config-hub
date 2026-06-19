@@ -66,9 +66,11 @@ class ModelComponent:
    def __init__(self, data: dict):
       model = data.get("model") or {}
       self.name = model.get("display_name") or model.get("id") or "?"
+      effort = data.get("effort") or {}
+      self.effort_level = effort.get("level") or "?"
 
    def render(self):
-      return f"\uf2db {color(self.name, MAGENTA)}"
+      return f"\uf2db {color(self.name, MAGENTA)} {self.effort_level}"
 
 
 class DirComponent:
