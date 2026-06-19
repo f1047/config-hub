@@ -25,8 +25,12 @@ fi
 
 . "$project_root"/utils/link.sh
 
-# Link skills individually
-link \
-   "$project_root"/configs/claude/entities/skills/save-plan \
-   "$HOME"/.claude/skills/save-plan \
-   "claude-skills"
+# Link every skill under entities/skills
+for skill_dir in "$project_root"/configs/claude/entities/skills/*/; do
+   [ -d "$skill_dir" ] || continue
+   skill_name="$(basename "$skill_dir")"
+   link \
+      "${skill_dir%/}" \
+      "$HOME"/.claude/skills/"$skill_name" \
+      "claude-skills"
+done
