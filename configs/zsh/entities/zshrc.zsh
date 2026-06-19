@@ -191,7 +191,6 @@ fi
 # mise
 if (( $+commands[mise] )); then
    eval "$(mise activate zsh)"
-   eval "$(mise activate --shims)"
    eval "$(mise completion zsh)"
 fi
 
@@ -230,8 +229,13 @@ fi
 
 # tac
 ## alias if unavailable (e.g. on macOS)
-if (( ${+commands[tac]} )); then
+if (( ! ${+commands[tac]} )); then
    alias tac="tail -r"
+fi
+
+# fzf
+if (( ${+commands[fzf]} )); then
+   source <(fzf --zsh)
 fi
 
 alias grep='grep --color=auto'
