@@ -82,6 +82,9 @@ fi
 # Completion
 ###############################################################################
 
+# mise-completions-sync: must join fpath before compinit runs
+[[ -d $XDG_DATA_HOME/mise-completions/zsh ]] && fpath=($XDG_DATA_HOME/mise-completions/zsh $fpath)
+
 autoload +X -U compinit && compinit -C -d $XDG_CACHE_HOME/zsh/compdump
 
 autoload -U history-search-end
