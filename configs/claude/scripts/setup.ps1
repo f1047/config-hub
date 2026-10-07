@@ -28,3 +28,8 @@ link `
    (Join-Path $projectRoot "configs\claude\entities\skills\save-plan") `
    (Join-Path $HOME ".claude\skills\save-plan") `
    "claude-skills"
+
+link `
+   (Join-Path $projectRoot "configs\claude\entities\CLAUDE.md") `
+   (Join-Path $HOME ".claude\CLAUDE.md") `
+   "claude"

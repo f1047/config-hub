@@ -34,3 +34,8 @@ for skill_dir in "$project_root"/configs/claude/entities/skills/*/; do
       "$HOME"/.claude/skills/"$skill_name" \
       "claude-skills"
 done
+
+link \
+   "$project_root"/configs/claude/entities/CLAUDE.md \
+   "$HOME"/.claude/CLAUDE.md \
+   "claude"
