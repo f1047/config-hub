@@ -1,0 +1,18 @@
+[settings]
+minimum_release_age = "5d"
+minimum_release_age_excludes = ["claude-code"]
+
+[tools]
+"github:alltuner/mise-completions-sync" = { version = "latest", os = ["linux", "macos"] }  # no windows build
+claude-code = "latest"
+fzf = "latest"
+gh = "latest"
+ghq = "latest"
+jq = "latest"
+neovim = "latest"
+tmux = { version = "latest", os = ["linux", "macos"] }  # no windows build
+uv = "latest"
+
+[hooks]
+# `exit 0` is a no-op valid in sh, cmd, and pwsh.
+postinstall = "{% if os() == 'windows' %}exit 0{% else %}misecompsync --new-only{% endif %}"

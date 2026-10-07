@@ -18,6 +18,7 @@ if (-not $env:XDG_CONFIG_HOME) {
 
 & "$projectRoot/configs/claude/scripts/setup.ps1"
 & "$projectRoot/configs/git/scripts/setup.ps1"
+& "$projectRoot/configs/mise/scripts/setup.ps1"
 & "$projectRoot/configs/nvim/scripts/setup.ps1"
 
 if (Test-Path $env:CONFIGHUB_BACKUP_DIR) {

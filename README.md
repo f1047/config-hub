@@ -18,7 +18,7 @@ Symlinks require either **Developer Mode** enabled or running as **Administrator
 .\setup.ps1
 ```
 
-> `setup.ps1` currently sets up: claude, git, nvim.
+> `setup.ps1` currently sets up: claude, git, mise, nvim.
 
 ## Structure
 

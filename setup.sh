@@ -19,6 +19,7 @@ sh "$project_root"/configs/claude/scripts/setup.sh
 sh "$project_root"/configs/fish/scripts/setup.sh
 sh "$project_root"/configs/ghostty/scripts/setup.sh
 sh "$project_root"/configs/git/scripts/setup.sh
+sh "$project_root"/configs/mise/scripts/setup.sh
 sh "$project_root"/configs/nvim/scripts/setup.sh
 sh "$project_root"/configs/ssh/scripts/setup.sh
 sh "$project_root"/configs/tmux/scripts/setup.sh
