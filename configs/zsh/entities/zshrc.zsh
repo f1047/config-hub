@@ -150,7 +150,7 @@ if [[ "$TERM_PROGRAM" == "vscode" ]]; then
    export VISUAL="code --wait"
    export EDITOR="$VISUAL"
 elif [[ "$TERM_PROGRAM" == "zed" ]]; then
-   export VISUAL="zed"
+   export VISUAL="zed --wait"
    export EDITOR="$VISUAL"
 elif (( $+commands[nvim] )); then
    export VISUAL="nvim"
