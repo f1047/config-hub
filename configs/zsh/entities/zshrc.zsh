@@ -195,6 +195,33 @@ fi
 if (( $+commands[mise] )); then
    eval "$(mise activate zsh)"
    eval "$(mise completion zsh)"
+
+   # Show outdated tools. The check runs once a day in the background (~5s).
+   () {
+      local cache=${XDG_CACHE_HOME:-$HOME/.cache}/mise-outdated.txt
+      # Installs/uninstalls bump the tool dir's mtime, invalidating the cache
+      local newest=(${MISE_DATA_DIR:-$HOME/.local/share/mise}/installs/*(N/om[1]))
+      local invalid=0
+      [[ $newest -nt $cache ]] && invalid=1
+      if (( ! invalid )) && [[ -s $cache ]]; then
+         local lines=("${(@f)$(<$cache)}")
+         print -P '%F{yellow}mise outdated:%f'
+         # Mimic mise's TTY header style (italic magenta)
+         print -r -- $'\e[3;35m'${lines[1]}$'\e[0m'
+         print -rl -- ${lines[2,-1]}
+      fi
+      if (( invalid )) || [[ ! -f $cache || -n $(find $cache -mmin +1440) ]]; then
+         touch $cache
+         # mise omits its header when not writing to a TTY
+         (
+            local out
+            out=$(mise outdated 2>/dev/null) || exit
+            if [[ -n $out ]]; then
+               print -l 'name requested current latest source' $out | column -t
+            fi >| $cache.tmp && mv $cache.tmp $cache
+         ) &!
+      fi
+   }
 fi
 
 # psql
