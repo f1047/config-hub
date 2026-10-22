@@ -1,5 +1,11 @@
 # Guidelines
 
+## Tests
+
+Follow a standard TDD (Red-Green-Refactor) flow.
+
+Tests (unit tests, integration tests, E2E tests) should state what the specification is, not the implementation.
+
 ## Sentence length
 
 - Make code comments or document sentences as short as possible
